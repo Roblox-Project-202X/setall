@@ -48,17 +48,21 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+mkdir -p -m777 tmp
+
 git clone https://github.com/Roblox-Project-202X/setall
 
-cd setall
+cd tmp
 
 git clone https://github.com/Roblox-Project-202X/setall -b $partition
 
+cd ..
+
 shopt -s dotglob
 
-mv setall/* .
+mv tmp/setall/* setall/
 
-rm -rf setall
+rm -rf tmp/setall
 
 touch $partition
 
