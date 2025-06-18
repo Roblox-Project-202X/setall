@@ -37,7 +37,7 @@ if [ -e "roblox" ]; then
 	rm -rf roblox
 fi
 
-if [ -e "setall "]; then
+if [ -e "setall" ]; then
     rm -rf setall
 fi
 
