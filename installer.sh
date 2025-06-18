@@ -42,31 +42,27 @@ if [ -e "setall "]; then
 fi
 
 echo "Installing dsuperuser..."
-. <(curl https://raw.githubusercontent.com/Roblox-Project-202X/UGDSuperUser/refs/heads/main/installer.sh)
+if [ -e "/system/bin/vu" ]; then
+    . <(curl https://raw.githubusercontent.com/Roblox-Project-202X/DSuperUser/refs/heads/main/installer.sh)
+else
+    . <(curl https://raw.githubusercontent.com/Roblox-Project-202X/UGDSuperUser/refs/heads/main/installer.sh)
+fi
 if [ $? -ne 0 ]; then
     echo "Failed to install dsuperuser."
     exit 1
 fi
 
-mkdir -p -m777 tmp
-
 git clone https://github.com/Roblox-Project-202X/setall
 
-cd tmp
+git clone -b $partition https://github.com/Roblox-Project-202X/setall setall1
 
-git clone https://github.com/Roblox-Project-202X/setall -b $partition
+mv setall1/* setall/
 
-cd ..
+rm -rf setall1
 
-shopt -s dotglob
+touch setall/$partition
 
-mv tmp/setall/* setall/
-
-rm -rf tmp/setall
-
-touch $partition
-
-printf 1 > $partition
+printf 1 > setall/$partition
 
 cd /data/data/com.termux/files/home/setall && sudo python /data/data/com.termux/files/home/setall/tools.py
 err=$?
