@@ -7,7 +7,8 @@ echo "  1) codex"
 echo "  2) delta"
 echo "  3) ronix"
 echo "  4) arceus"
-echo "  5) fluxuy"
+echo "  5) fluxus"
+echo "  6) krnl"
 read -p "Select: " choice
 
 case $choice in
@@ -15,7 +16,8 @@ case $choice in
     2) partition="delta" ;;
     3) partition="ronix" ;;
     4) partition="arceus" ;;
-    5) partition="fluxuy" ;;
+    5) partition="fluxus" ;;
+    6) partition="krnl" ;;
     *) echo "Lựa chọn không hợp lệ."; exit 1 ;;
 esac
 
@@ -46,17 +48,21 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+mkdir -p -m777 tmp
+
 git clone https://github.com/Roblox-Project-202X/setall
 
-cd setall
+cd tmp
 
 git clone https://github.com/Roblox-Project-202X/setall -b $partition
 
+cd ..
+
 shopt -s dotglob
 
-mv setall/* .
+mv tmp/setall/* setall/
 
-rm -rf setall
+rm -rf tmp/setall
 
 touch $partition
 
