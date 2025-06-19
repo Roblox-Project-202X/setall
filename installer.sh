@@ -9,6 +9,11 @@ echo "  3) ronix"
 echo "  4) arceus"
 echo "  5) fluxus"
 echo "  6) krnl"
+echo "  7) cryptic"
+echo "  8) codex-vng"
+echo "  9) arceus-vng"
+echo "  10) krnl-vng"
+echo "  11) cryptic-vng"
 read -p "Select: " choice
 
 case $choice in
@@ -18,6 +23,11 @@ case $choice in
     4) partition="arceus" ;;
     5) partition="fluxus" ;;
     6) partition="krnl" ;;
+    7) partition="cryptic" ;;
+    8) partition="codex-vng" ;;
+    9) partition="arceus-vng" ;;
+    10) partition="krnl-vng" ;;
+    11) partition="cryptic-vng" ;;
     *) echo "Lựa chọn không hợp lệ."; exit 1 ;;
 esac
 
