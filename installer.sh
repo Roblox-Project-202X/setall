@@ -2,34 +2,44 @@
 
 clear
 
+partitions_url="https://raw.githubusercontent.com/Roblox-Project-202X/setall/refs/heads/main/partitions.data"
+partitions_file="./partitions.data"
+
+if ! curl -fsSL "$partitions_url" -o "$partitions_file"; then
+    echo "Không thể tải danh sách phiên bản. Sử dụng danh sách mặc định."
+    cat > "$partitions_file" <<EOF
+codex=codex
+delta=delta
+ronix=ronix
+arceus=arceus
+fluxus=fluxus
+krnl=krnl
+cryptic=cryptic
+codex-vng=codex vng
+arceus-vng=arceus vng
+krnl-vng=krnl vng
+cryptic-vng=cryptic vng
+EOF
+fi
+
 echo "Chọn phiên bản roblox cần cài:"
-echo "  1) codex"
-echo "  2) delta"
-echo "  3) ronix"
-echo "  4) arceus"
-echo "  5) fluxus"
-echo "  6) krnl"
-echo "  7) cryptic"
-echo "  8) codex-vng"
-echo "  9) arceus-vng"
-echo "  10) krnl-vng"
-echo "  11) cryptic-vng"
+i=1
+declare -A partition_map
+while IFS='=' read -r key value; do
+    [ -z "$key" ] && continue
+    echo "  $i) $value"
+    partition_map[$i]="$key"
+    ((i++))
+done < "$partitions_file"
+
 read -p "Select: " choice
 
-case $choice in
-    1) partition="codex" ;;
-    2) partition="delta" ;;
-    3) partition="ronix" ;;
-    4) partition="arceus" ;;
-    5) partition="fluxus" ;;
-    6) partition="krnl" ;;
-    7) partition="cryptic" ;;
-    8) partition="codex-vng" ;;
-    9) partition="arceus-vng" ;;
-    10) partition="krnl-vng" ;;
-    11) partition="cryptic-vng" ;;
-    *) echo "Lựa chọn không hợp lệ."; exit 1 ;;
-esac
+partition="${partition_map[$choice]}"
+partition="$(echo -e "${partition}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
+if [ -z "$partition" ]; then
+    echo "Lựa chọn không hợp lệ."
+    exit 1
+fi
 
 if [ -e "/data/data/com.termux/files/home/storage" ]; then
 	rm -rf /data/data/com.termux/files/home/storage
