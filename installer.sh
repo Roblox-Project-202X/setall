@@ -41,6 +41,10 @@ if [ -z "$partition" ]; then
     exit 1
 fi
 
+if [ -e "$partitions_file" ]; then
+	rm -rf "$partitions_file"
+fi
+
 if [ -e "/data/data/com.termux/files/home/storage" ]; then
 	rm -rf /data/data/com.termux/files/home/storage
 fi
