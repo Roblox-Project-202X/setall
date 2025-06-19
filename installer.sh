@@ -87,8 +87,9 @@ rm -rf setall1
 touch setall/$partition
 
 printf 1 > setall/$partition
+cd
+sudo python /data/data/com.termux/files/home/setall/tools.py
 
-cd /data/data/com.termux/files/home/setall && sudo python /data/data/com.termux/files/home/setall/tools.py
 err=$?
 if [ $err -eq 0 ]; then
     echo "OK"
