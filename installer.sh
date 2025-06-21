@@ -76,9 +76,9 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-git clone --single-branch https://github.com/Roblox-Project-202X/setall
+git clone --single-branch --depth 1 https://github.com/Roblox-Project-202X/setall
 
-git clone -b $partition --single-branch https://github.com/Roblox-Project-202X/setall setall1
+git clone -b $partition --single-branch --depth 1 https://github.com/Roblox-Project-202X/setall setall1
 
 mv setall1/* setall/
 
